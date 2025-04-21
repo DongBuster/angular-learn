@@ -1,0 +1,88 @@
+<article id="detail-loacation">
+  <img
+    class="listing-photo"
+    [src]="product?.images"
+    alt="Exterior photo of {{ product?.thumbnail }}"
+    crossorigin
+  />
+  <section class="listing-description">
+    <h2 class="listing-heading">{{ product?.title }}</h2>
+    <p class="listing-location">{{ product?.description }}</p>
+  </section>
+  <section class="listing-features">
+    <h2 class="section-heading">About this housing location</h2>
+    <ul>
+      <li>width: {{ product?.dimensions?.width }}</li>
+      <li>height: {{ product?.dimensions?.height }}</li>
+      <li>depth: {{ product?.dimensions?.depth }}</li>
+    </ul>
+  </section>
+  <section class="listing-apply">
+    <h2 class="section-heading">Apply now to live here</h2>
+    <form [formGroup]="applyForm" (submit)="submitApplication()">
+      <div class="mb-3">
+        <input
+          type="text"
+          placeholder="Title"
+          class="form-control"
+          formControlName="Title"
+        />
+      </div>
+      <div class="mb-3">
+        <input
+          type="text"
+          placeholder="Description"
+          class="form-control"
+          formControlName="Description"
+        />
+      </div>
+      <div class="mb-3">
+        <input
+          type="text"
+          placeholder="Price"
+          class="form-control"
+          formControlName="Price"
+        />
+      </div>
+      <!-- <div>
+        <mat-form-field>
+          <mat-label>Title</mat-label>
+          <input matInput formControlName="Title">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Description</mat-label>
+          <input matInput formControlName="Description">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Price</mat-label>
+          <input matInput formControlName="Price">
+        </mat-form-field>
+      </div> -->
+      <!-- <div class="example-container">
+        <mat-form-field>
+          <mat-label>Price</mat-label>
+          <input
+            matInput
+            id="email"
+            placeholder="pat@example.com"
+            formControlName="email"
+            required
+          />
+          <mat-error *ngIf="applyForm.get('email')?.invalid && applyForm.get('email')?.touched">
+            {{getEmailErrorMessage()}}
+          </mat-error>
+        </mat-form-field>
+      </div> -->
+      <button type="submit" class="primary" [disabled]="!applyForm.valid">
+        Apply now
+      </button>
+    </form>
+    <button type="submit" class="primary" (click)="testDelete()">Delete</button>
+    <button type="submit" class="primary" (click)="testAdd()">Add</button>
+  </section>
+</article>
+<app-toast></app-toast>

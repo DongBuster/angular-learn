@@ -1,0 +1,22 @@
+<div class="card-item">
+    <div class="row g-0" id="item">
+      <div class="form-check col-md-1">
+        <input 
+        id="input-cart-item"
+        type="checkbox" 
+        class="form-check-input"
+        [checked]="isChecked"
+        (change)="onToggleCheck($event)">
+      </div>
+      <div class="col-md-4">
+        <img id="photo" [src]="product.images" alt="Exterior photo of {{product.thumbnail}}" class=" rounded-start" >
+      </div>
+      <div class="col-md-5 " id="detailItem">
+        <div class="card-body">
+          <h2 class="card-title">{{product.title}}</h2>
+          <p class="card-text">{{product.price}} 🏴</p>
+        </div>
+        <button id="btnBuyCart" type="button" class="btn btn-primary">Buy</button>
+      </div>
+    </div>
+</div>

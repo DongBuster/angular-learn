@@ -1,0 +1,54 @@
+
+<div class="container text-center">
+  <div class="row">
+    <div class="col">
+      
+    </div>
+    <div class="col">
+      <div class="results">
+        <div id="header-cart">
+          <!-- Thêm (change) event cho checkbox chính -->
+          <input 
+       
+            class="form-check-input" 
+            type="checkbox" 
+            [checked]="isAllChecked"
+            (change)="toggleAllItems($event)"
+            id="checkAll">
+          <div>
+            <button 
+              style="margin-right: 10px;" 
+              type="button" 
+              class="btn btn-primary"
+              [disabled]="!hasSelectedItems">Buy</button>
+            <button 
+              type="button" 
+              class="btn btn-danger"
+              (click)="deleteSelectedItems()"
+              [disabled]="!hasSelectedItems">Delete</button>
+          </div>
+        </div>
+        
+        <div *ngIf="cartList.length>0">  
+          <app-cart-item 
+            *ngFor="let item of cartList" 
+            [product]="item"
+            [isChecked]="selectedItems[item.id]"
+            (toggleCheck)="toggleItem(item.id, $event)">
+          </app-cart-item>
+        </div>
+      
+        <div *ngIf="cartList.length === 0" class="empty-cart">
+          <div class="empty-cart-content">
+            <h2>Your cart is empty</h2>
+            <p>Looks like you haven't added any housing locations to your cart yet.</p>
+            <a [routerLink]="['/']" class="browse-button">Browse Locations 👉</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+    
+    </div>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+.toast {
+  min-width: 300px;
+  max-width: 350px;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  border-radius: 0.5rem;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.toast.show {
+  opacity: 1;
+}
+
+.toast-body {
+  padding: 1rem;
+}
+
+.btn-close {
+  opacity: 0.8;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.btn-close:hover {
+  opacity: 1;
+}
+
+/* Custom colors for different toast types */
+.text-bg-success {
+  background-color: #28a745 !important;
+  color: white !important;
+}
+
+.text-bg-danger {
+  background-color: #dc3545 !important;
+  color: white !important;
+}
+
+.text-bg-info {
+  background-color: #17a2b8 !important;
+  color: white !important;
+}
+
+.text-bg-warning {
+  background-color: #ffc107 !important;
+  color: #212529 !important;
+}

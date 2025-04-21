@@ -1,0 +1,85 @@
+<div class="auth-container">
+  <div class="auth-box">
+    <div class="auth-header">
+      <h2>{{ isLoginMode ? 'Đăng nhập' : 'Đăng ký' }}</h2>
+      <button class="toggle-mode" (click)="toggleMode()">
+        {{ isLoginMode ? 'Chưa có tài khoản? Đăng ký' : 'Đã có tài khoản? Đăng nhập' }}
+      </button>
+    </div>
+
+    <form (ngSubmit)="onSubmit()" class="auth-form">
+      <!-- Common fields for both forms -->
+      <div class="form-group">
+        <label for="username">Tên đăng nhập</label>
+        <input 
+          type="text" 
+          id="username" 
+          [(ngModel)]="username" 
+          name="username" 
+          required 
+          placeholder="Nhập tên đăng nhập"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="password">Mật khẩu</label>
+        <input 
+          type="password" 
+          id="password" 
+          [(ngModel)]="password" 
+          name="password" 
+          required 
+          placeholder="Nhập mật khẩu"
+        >
+      </div>
+
+      <!-- Registration specific fields -->
+      <ng-container *ngIf="!isLoginMode">
+        <div class="form-group">
+          <label for="confirmPassword">Xác nhận mật khẩu</label>
+          <input 
+            type="password" 
+            id="confirmPassword" 
+            [(ngModel)]="confirmPassword" 
+            name="confirmPassword" 
+            required 
+            placeholder="Nhập lại mật khẩu"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input 
+            type="email" 
+            id="email" 
+            [(ngModel)]="email" 
+            name="email" 
+            required 
+            placeholder="Nhập email"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="fullName">Họ và tên</label>
+          <input 
+            type="text" 
+            id="fullName" 
+            [(ngModel)]="fullName" 
+            name="fullName" 
+            required 
+            placeholder="Nhập họ và tên"
+          >
+        </div>
+      </ng-container>
+
+      <button type="submit" class="auth-button">
+        {{ isLoginMode ? 'Đăng nhập' : 'Đăng ký' }}
+      </button>
+      
+      <div class="forgot-password" *ngIf="isLoginMode">
+        <a routerLink="/forgot-password">Quên mật khẩu?</a>
+      </div>
+    </form>
+  </div>
+</div>
+<app-toast></app-toast>

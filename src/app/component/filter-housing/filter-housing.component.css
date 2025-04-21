@@ -1,0 +1,12 @@
+.filter{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.ms-3{
+    display: flex;
+    align-items: center;
+}
+.form-select{
+    max-width: 20%;
+}

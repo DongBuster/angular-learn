@@ -1,0 +1,12 @@
+<app-carousel style="display: flex; justify-content: center"></app-carousel>
+<div class="container text-center">
+  <app-filter-housing></app-filter-housing>
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+    <app-housing-location
+      *ngFor="let product of filteredProductList"
+      [product]="product"
+    >
+    </app-housing-location>
+  </div>
+</div>
+<app-toast></app-toast>

@@ -1,0 +1,26 @@
+
+  .listing-photo {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+
+    user-select: none;
+
+  }
+  .card{
+    margin-bottom: 20px;
+  }
+
+  #add-house{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  #icon-add{
+    margin-right: 20px;
+  } 
+  .card-price{
+    color: gold;
+    font-size: 20px;
+    font-weight: bold;
+  }

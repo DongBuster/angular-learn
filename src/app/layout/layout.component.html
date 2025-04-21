@@ -1,0 +1,33 @@
+<header
+  class="header-row"
+  *ngIf="!isAuthPage"
+  [ngClass]="{
+    'header-home': isHomePage,
+    'header-cart': isCartPage,
+    'header-detail': isDetailPage
+  }"
+>
+  <a [routerLink]="['/home']" class="text-decoration-none">
+    <img
+      class="brand-logo"
+      src="assets/logo.svg"
+      alt="logo"
+      aria-hidden="true"
+    />
+  </a>
+  <ng-container [ngSwitch]="true">
+    <app-search-bar *ngSwitchCase="isHomePage"></app-search-bar>
+    <div id="header-tile" *ngSwitchCase="isCartPage">Your Cart</div>
+    <div id="header-tile" *ngSwitchCase="isDetailPage">Housing Details</div>
+  </ng-container>
+  <div style="display: flex; justify-content: center; align-items: center">
+    <app-cart-button style="margin-right: 30px"></app-cart-button>
+    <app-user-profile></app-user-profile>
+  </div>
+</header>
+<section class="content">
+  <router-outlet></router-outlet>
+</section>
+<nav id="footer" *ngIf="!isAuthPage">
+  <p id="author">Create by Dongbuster</p>
+</nav>

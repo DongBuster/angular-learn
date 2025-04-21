@@ -1,0 +1,16 @@
+<div class="dropdown">
+  <div class="profile-container" (click)="toggleDropdown($event)">
+    <img 
+      [src]="avatarUrl" 
+      alt="User avatar" 
+      class="avatar"
+    >
+    <span class="username">{{ username }}</span>
+  </div>
+  <ul class="dropdown-menu" *ngIf="isDropdownOpen">
+    <li><a class="dropdown-item" href="#">Profile</a></li>
+    <li><a class="dropdown-item" href="#">Settings</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" (click)="logout()">Đăng xuất</a></li>
+  </ul>
+</div>
