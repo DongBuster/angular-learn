@@ -27,7 +27,7 @@ export class AuthComponent {
   confirmPassword: string = '';
   email: string = '';
   fullName: string = '';
-  messageError: string = '';
+
   @ViewChild(ToastComponent) toastComponent!: ToastComponent;
   constructor(private router: Router, private toastService: ToastService) {}
   authService = inject(AuthService);
@@ -50,7 +50,7 @@ export class AuthComponent {
         .login({ username: this.username, password: this.password })
         .pipe(
           catchError((error) => {
-            this.messageError = 'Đăng nhập không thành công!';
+            // this.messageError = 'Đăng nhập không thành công!';
             this.toastService.show('Đăng nhập không thành công!', 'danger');
 
             return throwError(() => error);

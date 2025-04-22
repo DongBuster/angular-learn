@@ -3,6 +3,7 @@ import { FeatherIconsModule } from '../icons/icons.component';
 import { Product } from '../../core/models/product.model.';
 import { HomeRepository } from '../../core/repository/home.repository';
 import { FilterService } from '../../core/service/filter/filter.service';
+import { HomeService } from '../../core/service/home/home.service';
 
 @Component({
   selector: 'app-search-bar',
@@ -15,12 +16,16 @@ export class SearchBarComponent {
   productsList: Product[] = [];
   homeRepo: HomeRepository = inject(HomeRepository);
   filteredProductList: Product[] = [];
-  constructor(private filterService: FilterService) {
-    this.homeRepo.getAll().subscribe((productList) => {
-      // console.log(productList);
+  constructor(
+    private filterService: FilterService,
+    private homeService: HomeService
+  ) {
+    this.homeService.homeProduct$.subscribe((productList) => {
       this.productsList = productList;
+    });
+    this.filterService.filteredLocations$.subscribe((productList) => {
+      // this.productsList = productList;
       this.filteredProductList = productList;
-      this.filterService.updateFilteredLocations(this.filteredProductList);
     });
   }
   filterResults(text: string) {

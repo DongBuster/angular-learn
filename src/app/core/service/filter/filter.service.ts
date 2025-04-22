@@ -12,4 +12,7 @@ export class FilterService {
   updateFilteredLocations(locations: Product[]) {
     this.filteredLocationsSource.next(locations);
   }
+  getFilteredLocations(): Product[] {
+    return this.filteredLocationsSource.getValue();
+  }
 }

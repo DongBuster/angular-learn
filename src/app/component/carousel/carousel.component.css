@@ -1,11 +1,10 @@
-#img-carousel{
-    object-fit: cover;
-    height: 400px;
-    width: 85vw;
+#img-carousel {
+  object-fit: cover;
+  height: 350px;
+  width: 85vw;
 }
-#carouselExampleCaptions{
-    margin-bottom: 20px;
-    /* display: flex; */
-    /* justify-content: center; */
+#carouselExampleCaptions {
+  margin-bottom: 20px;
+  /* display: flex; */
+  /* justify-content: center; */
 }
-

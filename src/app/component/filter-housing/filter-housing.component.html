@@ -1,29 +1,36 @@
 <div class="filter">
-   
-    <h1>Sắp xếp theo</h1>
-   <div class="filter">
+  <h1>Sắp xếp theo</h1>
+  <div class="filter">
     <div class="ms-3">
-        <input 
-      class="form-check-input" 
-      type="checkbox" 
-      (change)="filterIncrease($event)"
-      id="checkIncrease ">
-      <p style="margin-bottom: 0;" class="ms-2">Tăng dần theo giá</p>
+      <input
+        class="form-check-input"
+        type="checkbox"
+        [(ngModel)]="increaseChecked"
+        (change)="filterIncrease($event)"
+        id="checkIncrease "
+      />
+      <p style="margin-bottom: 0" class="ms-2">Tăng dần theo giá</p>
     </div>
     <div class="ms-3">
-    <input 
-      class="form-check-input" 
-      type="checkbox" 
-      (change)="filterDecrease($event)"
-      id="checkDecrease ">
-      <p style="margin-bottom: 0;" class="ms-2">Giảm dần theo giá</p>
+      <input
+        class="form-check-input"
+        type="checkbox"
+        [(ngModel)]="decreaseChecked"
+        (change)="filterDecrease($event)"
+        id="checkDecrease "
+      />
+      <p style="margin-bottom: 0" class="ms-2">Giảm dần theo giá</p>
     </div>
-   </div>
-    <select class="form-select" [(ngModel)]="selectedValue" (change)="filterRange()"  aria-label="Default select example">
-     <option value="All" selected>All</option>
-     <option value="500-1000">500$-1000$</option>
-     <option value="1000-1100">1000$-1100$</option>
-     <option value="1100-1200">1100$-1200$</option>
-   </select>
-   
+  </div>
+  <select
+    class="form-select"
+    [(ngModel)]="selectedValue"
+    (change)="filterRange()"
+    aria-label="Default select example"
+  >
+    <option value="All" selected>All</option>
+    <option value="500-1000">500$-1000$</option>
+    <option value="1000-1100">1000$-1100$</option>
+    <option value="1100-1200">1100$-1200$</option>
+  </select>
 </div>

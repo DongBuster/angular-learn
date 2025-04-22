@@ -21,6 +21,11 @@ import { CartButtonComponent } from '../component/cart-button/cart-button.compon
 export class LayoutComponent {
   currentRoute: string = '';
 
+  // private toastService: ToastService
+
+  // ngAfterViewInit() {
+  //   this.toastService.register(this.toastComponent);
+  // }
   constructor(private router: Router) {
     // Theo dõi thay đổi route
     this.router.events

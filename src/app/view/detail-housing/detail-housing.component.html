@@ -44,39 +44,6 @@
           formControlName="Price"
         />
       </div>
-      <!-- <div>
-        <mat-form-field>
-          <mat-label>Title</mat-label>
-          <input matInput formControlName="Title">
-        </mat-form-field>
-      </div>
-      <div>
-        <mat-form-field>
-          <mat-label>Description</mat-label>
-          <input matInput formControlName="Description">
-        </mat-form-field>
-      </div>
-      <div>
-        <mat-form-field>
-          <mat-label>Price</mat-label>
-          <input matInput formControlName="Price">
-        </mat-form-field>
-      </div> -->
-      <!-- <div class="example-container">
-        <mat-form-field>
-          <mat-label>Price</mat-label>
-          <input
-            matInput
-            id="email"
-            placeholder="pat@example.com"
-            formControlName="email"
-            required
-          />
-          <mat-error *ngIf="applyForm.get('email')?.invalid && applyForm.get('email')?.touched">
-            {{getEmailErrorMessage()}}
-          </mat-error>
-        </mat-form-field>
-      </div> -->
       <button type="submit" class="primary" [disabled]="!applyForm.valid">
         Apply now
       </button>

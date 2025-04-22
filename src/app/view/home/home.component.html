@@ -1,12 +1,26 @@
 <app-carousel style="display: flex; justify-content: center"></app-carousel>
 <div class="container text-center">
-  <app-filter-housing></app-filter-housing>
+  <app-filter-housing
+    (isCheckedIncrease)="getIscheckedIncrease($event)"
+    (isCheckedDecrease)="getIscheckedDecrease($event)"
+  ></app-filter-housing>
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
-    <app-housing-location
-      *ngFor="let product of filteredProductList"
-      [product]="product"
-    >
-    </app-housing-location>
+    <ng-container *ngIf="!isLoadingInit; else loadingInit">
+      <app-housing-location
+        *ngFor="let product of filteredProductList"
+        [product]="product"
+      >
+      </app-housing-location>
+    </ng-container>
+    <ng-template #loadingInit>
+      <div class="loading-container">
+        <app-loading></app-loading>
+      </div>
+    </ng-template>
   </div>
+  <div style="display: flex; justify-content: center">
+    <app-loading *ngIf="isLoading"></app-loading>
+  </div>
+  <button class="btn btn-primary mt-3" (click)="loadmore()">Load More</button>
 </div>
 <app-toast></app-toast>

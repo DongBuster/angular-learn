@@ -1,3 +1,11 @@
 .container.text-center{
   min-height: 50vw;
 }
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 20vw;
+  width: 100%;
+}

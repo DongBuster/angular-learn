@@ -7,9 +7,25 @@ import { DummyJsonRepone } from '../models/dummyJsonRepone.model';
 @Injectable({ providedIn: 'root' })
 export class HomeRepository {
   constructor(private http: HttpClient) {}
-  getAll(): Observable<Product[]> {
+  getAll(skip: Number): Observable<Product[]> {
     return this.http
-      .get<DummyJsonRepone>('https://dummyjson.com/products')
+      .get<DummyJsonRepone>(
+        `https://dummyjson.com/products?limit=20&skip=${skip}`
+      )
+      .pipe(map((response) => response.products));
+  }
+  getAllAsc(skip: Number): Observable<Product[]> {
+    return this.http
+      .get<DummyJsonRepone>(
+        `https://dummyjson.com/products?limit=20&skip=${skip}&sortBy=price&order=asc`
+      )
+      .pipe(map((response) => response.products));
+  }
+  getAllDesc(skip: Number): Observable<Product[]> {
+    return this.http
+      .get<DummyJsonRepone>(
+        `https://dummyjson.com/products?limit=20&skip=${skip}&sortBy=price&order=desc`
+      )
       .pipe(map((response) => response.products));
   }
 }

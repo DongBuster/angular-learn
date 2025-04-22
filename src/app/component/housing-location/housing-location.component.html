@@ -4,17 +4,18 @@
     [src]="product.images"
     alt="Exterior photo of {{ product.thumbnail }}"
   />
-  <div class="card-body">
+  <div>
     <h5 class="card-title">{{ product.title }}</h5>
-    <!-- <p id="location" class="card-text">{{ product.city }}, {{ product.state }}</p> -->
     <h5 class="card-price">{{ product.price }}$</h5>
-    <div id="add-house">
-      <a [routerLink]="['/detail', product.id]">Learn more</a>
-      <i-feather
-        (click)="addHouseToCart(product)"
-        id="icon-add"
-        name="plus"
-      ></i-feather>
-    </div>
   </div>
+  <!-- <div class="card-body"> -->
+  <div id="add-house">
+    <a [routerLink]="['/detail', product.id]">Learn more</a>
+    <i-feather
+      (click)="addHouseToCart(product)"
+      id="icon-add"
+      name="plus"
+    ></i-feather>
+  </div>
+  <!-- </div> -->
 </div>
