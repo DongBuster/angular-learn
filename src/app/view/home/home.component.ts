@@ -75,8 +75,6 @@ export class HomeComponent {
   }
   loadmore() {
     this.isLoading = true;
-    // console.log('is checked increase', this.isCheckedIncrease);
-    // console.log('is checked decrease', this.isCheckedDecrease);
     if (this.isCheckedDecrease == false && this.isCheckedIncrease == false) {
       this.skipData += 10;
       this.homeRepo.getAll(this.skipData).subscribe({

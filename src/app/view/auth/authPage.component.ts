@@ -1,3 +1,4 @@
+import { AuthService } from './../../core/service/auth/auth.service';
 import { Component, inject, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -5,7 +6,7 @@ import { Router, RouterModule } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
 import { ToastComponent } from '../../component/toast/toast.component';
 import { ToastService } from '../../core/service/toast/toast.service';
-import { AuthService } from '../../core/service/auth/auth.service';
+import { AuthRepository } from '../../core/repository/auth.repository';
 
 @Component({
   selector: 'app-auth-page',
@@ -29,8 +30,12 @@ export class AuthComponent {
   fullName: string = '';
 
   @ViewChild(ToastComponent) toastComponent!: ToastComponent;
-  constructor(private router: Router, private toastService: ToastService) {}
-  authService = inject(AuthService);
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private toastService: ToastService
+  ) {}
+  authRepo = inject(AuthRepository);
   ngAfterViewInit() {
     this.toastService.register(this.toastComponent);
   }
@@ -46,7 +51,7 @@ export class AuthComponent {
 
   onSubmit() {
     if (this.isLoginMode) {
-      this.authService
+      this.authRepo
         .login({ username: this.username, password: this.password })
         .pipe(
           catchError((error) => {
@@ -57,13 +62,8 @@ export class AuthComponent {
           })
         )
         .subscribe((res) => {
-          localStorage.setItem('accessToken', res.accessToken);
-          localStorage.setItem('refreshToken', res.refreshToken);
-          localStorage.setItem('userId', res.id.toString());
-          localStorage.setItem('userName', res.username);
-          localStorage.setItem('imageUrl', res.image);
-          localStorage.setItem('login', 'true');
           this.router.navigate(['/home']);
+          this.authService.saveDataLocalStorage(res);
         });
     } else {
       // Registration logic

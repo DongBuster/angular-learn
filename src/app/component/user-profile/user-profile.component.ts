@@ -19,6 +19,7 @@ export class UserProfileComponent {
   ngOnInit() {
     this.username = localStorage.getItem('userName') ?? '';
     this.avatarUrl = localStorage.getItem('imageUrl') ?? '';
+    // console.log(this.avatarUrl);
   }
 
   @HostListener('document:click', ['$event'])
@@ -34,12 +35,6 @@ export class UserProfileComponent {
   }
 
   logout() {
-    localStorage.setItem('accsesToken', '');
-    localStorage.setItem('refreshToken', '');
-    localStorage.setItem('userId', '');
-    localStorage.setItem('userName', '');
-    localStorage.setItem('imageUrl', '');
-    localStorage.setItem('login', 'false');
     this.router.navigate(['/auth']);
   }
 }

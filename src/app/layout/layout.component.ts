@@ -1,3 +1,4 @@
+import { AuthService } from './../core/service/auth/auth.service';
 import { Component, Input, Type } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { filter } from 'rxjs';
@@ -5,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { UserProfileComponent } from '../component/user-profile/user-profile.component';
 import { SearchBarComponent } from '../component/search-bar/search-bar.component';
 import { CartButtonComponent } from '../component/cart-button/cart-button.component';
+import { CanComponentDeactivate } from '../core/service/guard/logoutGuard.service';
 
 @Component({
   selector: 'app-layout',
@@ -18,15 +20,10 @@ import { CartButtonComponent } from '../component/cart-button/cart-button.compon
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.css'],
 })
-export class LayoutComponent {
+export class LayoutComponent implements CanComponentDeactivate {
   currentRoute: string = '';
 
-  // private toastService: ToastService
-
-  // ngAfterViewInit() {
-  //   this.toastService.register(this.toastComponent);
-  // }
-  constructor(private router: Router) {
+  constructor(private router: Router, private authService: AuthService) {
     // Theo dõi thay đổi route
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
@@ -36,13 +33,17 @@ export class LayoutComponent {
   }
 
   ngOnInit() {
-    const isLogined = localStorage.getItem('login');
-    if (isLogined === 'true') {
-      this.router.navigate(['/home']);
-    } else {
-      this.router.navigate(['/auth']);
-    }
     this.currentRoute = this.router.url;
+  }
+
+  canDeactivate(): boolean {
+    const resultConfirm = confirm('Bạn có chắc muốn đăng xuất không?');
+    if (resultConfirm) {
+      this.authService.setEmptyDataLocalStorage();
+      return true;
+    }
+
+    return false;
   }
 
   get isAuthPage(): boolean {
@@ -51,11 +52,9 @@ export class LayoutComponent {
   get isHomePage(): boolean {
     return this.currentRoute.includes('/home');
   }
-
   get isCartPage(): boolean {
     return this.currentRoute.includes('/cart');
   }
-
   get isDetailPage(): boolean {
     return this.currentRoute.includes('/detail');
   }

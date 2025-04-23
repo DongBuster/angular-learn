@@ -1,16 +1,29 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { User } from '../../models/user';
 import { TokenJWT } from '../../models/token';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  constructor(private http: HttpClient) {}
-  login(data: { username: string; password: string }): Observable<TokenJWT> {
-    return this.http.post<TokenJWT>('https://dummyjson.com/auth/login', data);
+  saveDataLocalStorage(tokenJWT: TokenJWT) {
+    localStorage.setItem('accessToken', tokenJWT.accessToken);
+    localStorage.setItem('refreshToken', tokenJWT.refreshToken);
+    localStorage.setItem('userId', tokenJWT.id.toString());
+    localStorage.setItem('userName', tokenJWT.username);
+    localStorage.setItem('imageUrl', tokenJWT.image);
+    localStorage.setItem('login', 'true');
   }
-  register(): Observable<User> {
-    return this.http.get<User>('https://dummyjson.com/users/add');
+  setEmptyDataLocalStorage() {
+    localStorage.setItem('accsesToken', '');
+    localStorage.setItem('refreshToken', '');
+    localStorage.setItem('userId', '');
+    localStorage.setItem('userName', '');
+    localStorage.setItem('imageUrl', '');
+    localStorage.setItem('login', 'false');
+  }
+  getDataLocalStorage(key: string): string {
+    return localStorage.getItem(key) ?? '';
+  }
+  isLoggedIn(): boolean {
+    const isLogin = localStorage.getItem('login');
+    return isLogin == 'true' ? true : false;
   }
 }

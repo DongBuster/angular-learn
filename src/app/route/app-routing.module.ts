@@ -1,15 +1,19 @@
 import { Routes } from '@angular/router';
+import { AuthGuard } from '../core/service/guard/authGuard.service';
+import { CanDeactivateGuard } from '../core/service/guard/logoutGuard.service';
 
 const routesConfig: Routes = [
   {
     path: 'auth',
     loadComponent: () =>
       import('../view/auth/authPage.component').then((c) => c.AuthComponent),
+    canActivate: [AuthGuard],
   },
   {
     path: '',
     loadComponent: () =>
       import('../layout/layout.component').then((c) => c.LayoutComponent),
+    canDeactivate: [CanDeactivateGuard],
     children: [
       {
         path: 'home',
