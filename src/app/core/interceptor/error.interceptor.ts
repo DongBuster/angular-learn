@@ -17,7 +17,6 @@ export class ErrorInterceptor implements HttpInterceptor {
   private isRefreshing = false;
   private refreshTokenSubject: BehaviorSubject<string | null> =
     new BehaviorSubject<string | null>(null);
-
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -44,7 +43,6 @@ export class ErrorInterceptor implements HttpInterceptor {
       })
     );
   }
-
   private handle401Error(
     req: HttpRequest<any>,
     next: HttpHandler
@@ -103,7 +101,6 @@ export class ErrorInterceptor implements HttpInterceptor {
       );
     }
   }
-
   private logout() {
     localStorage.setItem('accessToken', '');
     localStorage.setItem('refreshToken', '');

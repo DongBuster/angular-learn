@@ -28,4 +28,9 @@ export class HomeRepository {
       )
       .pipe(map((response) => response.products));
   }
+  getProductWithSearch(quey: string): Observable<Product[]> {
+    return this.http
+      .get<DummyJsonRepone>(`https://dummyjson.com/products/search?q=${quey}`)
+      .pipe(map((response) => response.products));
+  }
 }

@@ -5,7 +5,7 @@ import { HousingLocationComponent } from '../../component/housing-location/housi
 import { Subscription } from 'rxjs';
 import { ToastComponent } from '../../component/toast/toast.component';
 import { CarouselComponent } from '../../component/carousel/carousel.component';
-import { FilterHousingComponent } from '../../component/filter-housing/filter-housing.component';
+import { FilterProductsComponent } from '../../component/filter-products/filter-products.component';
 import { Product } from '../../core/models/product.model.';
 import { FilterService } from '../../core/service/filter/filter.service';
 import { HomeService } from '../../core/service/home/home.service';
@@ -20,7 +20,7 @@ import { LoadingComponent } from '../../component/loading/loading.component';
     HousingLocationComponent,
     ToastComponent,
     CarouselComponent,
-    FilterHousingComponent,
+    FilterProductsComponent,
     LoadingComponent,
   ],
   templateUrl: './home.component.html',
@@ -28,14 +28,19 @@ import { LoadingComponent } from '../../component/loading/loading.component';
 })
 export class HomeComponent {
   @ViewChild(ToastComponent) toastComponent!: ToastComponent;
+
   isCheckedIncrease: boolean = false;
   isCheckedDecrease: boolean = false;
+
   filteredProductList: Product[] = [];
+
   skipData: number = 0;
   skipData1: number = 0;
   skipData2: number = 0;
+
   isLoadingInit: boolean = true;
   isLoading: boolean = false;
+
   private subscription: Subscription = new Subscription();
 
   constructor(
@@ -44,7 +49,9 @@ export class HomeComponent {
     private homeService: HomeService,
     private toastService: ToastService
   ) {}
+
   ngOnInit() {
+    this.isLoadingInit = true;
     this.homeRepo.getAll(this.skipData).subscribe({
       next: (productList) => {
         this.filterService.updateFilteredLocations(productList);
@@ -62,28 +69,36 @@ export class HomeComponent {
       }
     );
   }
+
   ngAfterViewInit() {
     this.toastService.register(this.toastComponent);
   }
+
   getIscheckedIncrease(isChecked: boolean) {
-    // console.log(isChecked);
-    return (this.isCheckedIncrease = isChecked);
+    this.isLoadingInit = true;
+    this.isCheckedIncrease = isChecked;
+    setTimeout(() => {
+      this.isLoadingInit = false;
+    }, 800);
   }
+
   getIscheckedDecrease(isChecked: boolean) {
-    // console.log(isChecked);
-    return (this.isCheckedDecrease = isChecked);
+    this.isLoadingInit = true;
+    this.isCheckedDecrease = isChecked;
+    setTimeout(() => {
+      this.isLoadingInit = false;
+    }, 800);
   }
+
   loadmore() {
     this.isLoading = true;
     if (this.isCheckedDecrease == false && this.isCheckedIncrease == false) {
-      this.skipData += 10;
+      this.skipData += 20;
       this.homeRepo.getAll(this.skipData).subscribe({
         next: (productList) => {
           const currentList = this.filterService.getFilteredLocations();
-          // console.log(currentList);
           const mergedList = [...currentList, ...productList];
           this.filterService.updateFilteredLocations(mergedList);
-          this.homeService.updateHomeProduct(mergedList);
           this.isLoading = false;
         },
         error: (error) => {
@@ -92,15 +107,12 @@ export class HomeComponent {
         },
       });
     } else if (this.isCheckedIncrease) {
-      this.skipData1 += 10;
-
+      this.skipData1 += 20;
       this.homeRepo.getAllAsc(this.skipData1).subscribe({
         next: (productList) => {
           const currentList = this.filterService.getFilteredLocations();
-          // console.log(currentList);
           const mergedList = [...currentList, ...productList];
           this.filterService.updateFilteredLocations(mergedList);
-          this.homeService.updateHomeProduct(mergedList);
           this.isLoading = false;
         },
         error: (error) => {
@@ -109,15 +121,12 @@ export class HomeComponent {
         },
       });
     } else {
-      this.skipData2 += 10;
-
+      this.skipData2 += 20;
       this.homeRepo.getAllDesc(this.skipData2).subscribe({
         next: (productList) => {
           const currentList = this.filterService.getFilteredLocations();
-          // console.log(currentList);
           const mergedList = [...currentList, ...productList];
           this.filterService.updateFilteredLocations(mergedList);
-          this.homeService.updateHomeProduct(mergedList);
           this.isLoading = false;
         },
         error: (error) => {

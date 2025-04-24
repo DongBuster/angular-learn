@@ -4,22 +4,19 @@ import { FormsModule } from '@angular/forms';
 import { Product } from '../../core/models/product.model.';
 import { HomeRepository } from '../../core/repository/home.repository';
 import { FilterService } from '../../core/service/filter/filter.service';
-import { HomeService } from '../../core/service/home/home.service';
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-filter-housing',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './filter-housing.component.html',
-  styleUrls: ['./filter-housing.component.css'],
+  templateUrl: './filter-products.component.html',
+  styleUrls: ['./filter-products.component.css'],
 })
-export class FilterHousingComponent {
+export class FilterProductsComponent {
   @Output() isCheckedIncrease = new EventEmitter<boolean>();
   @Output() isCheckedDecrease = new EventEmitter<boolean>();
-  productList: Product[] = [];
-  homeRepo: HomeRepository = inject(HomeRepository);
-  filterHousingList: Product[] = [];
+  filterProductList: Product[] = [];
   selectedValue = 'All';
   private subscription: Subscription = new Subscription();
   increaseChecked = false;
@@ -27,15 +24,11 @@ export class FilterHousingComponent {
 
   constructor(
     private filterService: FilterService,
-    private homeService: HomeService
+    private homeRepo: HomeRepository
   ) {
-    this.homeService.homeProduct$.subscribe((productList) => {
-      this.productList = productList;
-      this.filterHousingList = productList;
-    });
     this.subscription = this.filterService.filteredLocations$.subscribe(
       (products) => {
-        this.filterHousingList = products;
+        this.filterProductList = products;
       }
     );
   }
@@ -53,18 +46,18 @@ export class FilterHousingComponent {
     this.isCheckedIncrease.emit(isChecked);
 
     if (isChecked) {
-      const list = [...this.filterHousingList].sort(
-        (a, b) => a.price - b.price
-      );
-      this.filterService.updateFilteredLocations(list);
+      this.homeRepo.getAllAsc(0).subscribe((list) => {
+        this.filterService.updateFilteredLocations(list);
+      });
     } else {
-      this.filterService.updateFilteredLocations(this.filterHousingList);
+      this.homeRepo.getAll(0).subscribe((list) => {
+        this.filterService.updateFilteredLocations(list);
+      });
     }
   }
 
   filterDecrease(event: Event) {
     const isChecked = (event.target as HTMLInputElement).checked;
-
     // Nếu đang check giảm và checkbox tăng đang được check
     if (isChecked && this.increaseChecked) {
       this.increaseChecked = false;
@@ -75,28 +68,35 @@ export class FilterHousingComponent {
     this.isCheckedDecrease.emit(isChecked);
 
     if (isChecked) {
-      const list = [...this.filterHousingList].sort(
-        (a, b) => b.price - a.price
-      );
-      this.filterService.updateFilteredLocations(list);
+      this.homeRepo.getAllDesc(0).subscribe((list) => {
+        this.filterService.updateFilteredLocations(list);
+      });
     } else {
-      this.filterService.updateFilteredLocations(this.filterHousingList);
+      this.homeRepo.getAll(0).subscribe((list) => {
+        this.filterService.updateFilteredLocations(list);
+      });
     }
   }
 
   filterRange() {
-    if (this.selectedValue == 'All') {
-      this.filterHousingList = [...this.productList];
-      this.filterService.updateFilteredLocations(this.filterHousingList);
-    } else {
-      const range = this.selectedValue.split('-');
-      const min = parseInt(range[0]);
-      const max = parseInt(range[1]);
-      this.filterHousingList = [...this.productList].filter(
-        (item) => item.price >= min && item.price <= max
-      );
-      this.filterService.updateFilteredLocations(this.filterHousingList);
-    }
+    // if (this.selectedValue == 'All') {
+    //   // [...this.filterProductList];
+    //   this.filterService.updateFilteredLocations([...this.filterProductList]);
+    // } else if (this.selectedValue == '>20000') {
+    //   const min = 20000;
+    //   const filterList = [...this.filterProductList].filter(
+    //     (item) => item.price >= min
+    //   );
+    //   this.filterService.updateFilteredLocations(filterList);
+    // } else {
+    //   const range = this.selectedValue.split('-');
+    //   const min = parseInt(range[0]);
+    //   const max = parseInt(range[1]);
+    //   const filterList = [...this.filterProductList].filter(
+    //     (item) => item.price >= min && item.price <= max
+    //   );
+    //   this.filterService.updateFilteredLocations(filterList);
+    // }
   }
 
   ngOnDestroy() {
