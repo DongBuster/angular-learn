@@ -1,23 +1,55 @@
 <article id="detail-loacation">
   <img
-    class="listing-photo"
+    class="detail-photo"
     [src]="product?.images"
-    alt="Exterior photo of {{ product?.thumbnail }}"
+    [alt]="product?.title"
     crossorigin
   />
-  <section class="listing-description">
-    <h2 class="listing-heading">{{ product?.title }}</h2>
-    <p class="listing-location">{{ product?.description }}</p>
+  <section class="detail-description">
+    <h1 class="heading">{{ product?.title }}</h1>
+
+    <div class="detail-rating">
+      <span class="rating-count">{{ product?.rating }}✨ Đánh Giá</span>
+      <span class="rating-sold">{{ product?.stock }} Đã bán</span>
+    </div>
+
+    <div class="detail-price">
+      <div class="price-container">
+        <!-- <span class="original-price">₫{{  }}</span> -->
+        <span class="current-price">₫{{ product?.price }}</span>
+        <span class="discount-tag">-37%</span>
+      </div>
+    </div>
+
+    <div class="detail-variants">
+      <div class="variant-title">Phân Loại</div>
+      <div class="variant-options">
+        <button class="variant-option active">1 Cây</button>
+        <button class="variant-option">Combo 2 Cây</button>
+        <button class="variant-option">Mua 1 tặng 1</button>
+      </div>
+    </div>
+
+    <div class="detail-quantity">
+      <div class="quantity-title">Số Lượng</div>
+      <div class="quantity-controls">
+        <button (click)="decreaseQuantity()">-</button>
+        <input [(ngModel)]="quantity" min="1" />
+        <button (click)="increaseQuantity()">+</button>
+        <span>{{ product?.stock }} sản phẩm có sẵn</span>
+      </div>
+    </div>
+
+    <div class="detail-actions">
+      <button class="btn-add-cart">
+        <i class="fas fa-cart-plus"></i>
+        Thêm Vào Giỏ Hàng
+      </button>
+      <button class="btn-buy-now">Mua Ngay</button>
+    </div>
   </section>
-  <section class="listing-features">
-    <h2 class="section-heading">About this housing location</h2>
-    <ul>
-      <li>width: {{ product?.dimensions?.width }}</li>
-      <li>height: {{ product?.dimensions?.height }}</li>
-      <li>depth: {{ product?.dimensions?.depth }}</li>
-    </ul>
-  </section>
-  <section class="listing-apply">
+
+  <!-- <section class="listing-apply">
     <h2 class="section-heading">Apply now to live here</h2>
     <form [formGroup]="applyForm" (submit)="submitApplication()">
       <div class="mb-3">
@@ -50,6 +82,7 @@
     </form>
     <button type="submit" class="primary" (click)="testDelete()">Delete</button>
     <button type="submit" class="primary" (click)="testAdd()">Add</button>
-  </section>
+  </section> -->
 </article>
+<p class="space"></p>
 <app-toast></app-toast>

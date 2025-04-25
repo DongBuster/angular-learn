@@ -1,6 +1,7 @@
 import { Component, ElementRef, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+declare var google: any;
 
 @Component({
   selector: 'app-user-profile',
@@ -17,8 +18,15 @@ export class UserProfileComponent {
   constructor(private router: Router, private elementRef: ElementRef) {}
 
   ngOnInit() {
-    this.username = localStorage.getItem('userName') ?? '';
-    this.avatarUrl = localStorage.getItem('imageUrl') ?? '';
+    if (sessionStorage.getItem('loggedInUser') != null) {
+      this.username =
+        JSON.parse(sessionStorage.getItem('loggedInUser')!).name ?? '';
+      this.avatarUrl =
+        JSON.parse(sessionStorage.getItem('loggedInUser')!).picture ?? '';
+    } else {
+      this.username = localStorage.getItem('userName') ?? '';
+      this.avatarUrl = localStorage.getItem('imageUrl') ?? '';
+    }
     // console.log(this.avatarUrl);
   }
 
@@ -35,6 +43,9 @@ export class UserProfileComponent {
   }
 
   logout() {
+    if (sessionStorage.getItem('loggedInUser') != null) {
+      google.accounts.id.disableAutoSelect();
+    }
     this.router.navigate(['/auth']);
   }
 }

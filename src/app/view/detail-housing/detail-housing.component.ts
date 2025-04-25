@@ -1,11 +1,12 @@
 import { DetailRepository } from './../../core/repository/detail.repository';
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, inject, ViewChild, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormGroup,
   FormControl,
   Validators,
   ReactiveFormsModule,
+  FormsModule,
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../core/models/product.model.';
@@ -15,7 +16,7 @@ import { ToastService } from '../../core/service/toast/toast.service';
 @Component({
   selector: 'app-detail-housing',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ToastComponent],
+  imports: [CommonModule, ReactiveFormsModule, ToastComponent, FormsModule],
   templateUrl: './detail-housing.component.html',
   styleUrls: ['./detail-housing.component.css'],
 })
@@ -23,6 +24,7 @@ export class DetailHousingComponent {
   route: ActivatedRoute = inject(ActivatedRoute);
   product: Product | undefined;
   @ViewChild(ToastComponent) toastComponent!: ToastComponent;
+  quantity: number = 1;
 
   applyForm = new FormGroup({
     Title: new FormControl('', Validators.required),
@@ -89,5 +91,17 @@ export class DetailHousingComponent {
         error: (err) =>
           this.toastService.show('Add không thành công!', 'danger'),
       });
+  }
+
+  decreaseQuantity() {
+    if (this.quantity > 1) {
+      this.quantity--;
+    }
+  }
+
+  increaseQuantity() {
+    // if (this.quantity < this.product?.stock) {
+    this.quantity++;
+    // }
   }
 }

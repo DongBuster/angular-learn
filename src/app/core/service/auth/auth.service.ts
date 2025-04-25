@@ -18,6 +18,8 @@ export class AuthService {
     localStorage.setItem('userName', '');
     localStorage.setItem('imageUrl', '');
     localStorage.setItem('login', 'false');
+
+    sessionStorage.removeItem('loggedInUser');
   }
   getDataLocalStorage(key: string): string {
     return localStorage.getItem(key) ?? '';
@@ -25,5 +27,8 @@ export class AuthService {
   isLoggedIn(): boolean {
     const isLogin = localStorage.getItem('login');
     return isLogin == 'true' ? true : false;
+  }
+  isLoggedOut(): boolean {
+    return !this.isLoggedIn();
   }
 }

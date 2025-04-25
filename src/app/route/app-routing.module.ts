@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from '../core/service/guard/authGuard.service';
 import { CanDeactivateGuard } from '../core/service/guard/logoutGuard.service';
+import { AuthGuard as AuthDeactivateGuard } from '../core/guards/auth.guard';
 
 const routesConfig: Routes = [
   {
@@ -8,6 +9,7 @@ const routesConfig: Routes = [
     loadComponent: () =>
       import('../view/auth/authPage.component').then((c) => c.AuthComponent),
     canActivate: [AuthGuard],
+    canDeactivate: [AuthDeactivateGuard]
   },
   {
     path: '',
