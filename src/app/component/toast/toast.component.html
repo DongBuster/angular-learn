@@ -1,26 +1,43 @@
-<div
-  class="toast-container position-fixed top-0 end-0 p-3"
-  style="z-index: 1055; margin-top: 50px"
->
-  <div
-    #toastRef
-    class="toast"
-    role="alert"
-    aria-live="assertive"
-    aria-atomic="true"
-  >
-    <div class="d-flex">
-      <div class="toast-body">
-        <div class="d-flex align-items-center">
-          <span>{{ message }}</span>
-        </div>
-      </div>
-      <button
-        type="button"
-        class="btn-close btn-close-white me-2 m-auto"
-        data-bs-dismiss="toast"
-        aria-label="Close"
-      ></button>
+<div class="toast-custom">
+  @for(toast of toasts; track toast){
+  <div class="toast-content" [ngClass]="toast.type">
+    <i-feather
+      class="icon-x"
+      name="x-circle"
+      *ngIf="toast.type == 'danger'"
+    ></i-feather>
+    <i-feather
+      class="icon-info"
+      name="alert-circle"
+      *ngIf="toast.type == 'info'"
+    ></i-feather>
+    <i-feather
+      class="icon-warning"
+      name="alert-triangle"
+      *ngIf="toast.type == 'warning'"
+    ></i-feather>
+    <i-feather
+      class="icon-success"
+      name="check-circle"
+      *ngIf="toast.type == 'success'"
+    ></i-feather>
+    <div class="message">
+      <span class="text text-1" [ngClass]="toast.type">{{ toast.title }}</span>
+      <span class="text text-2" [ngClass]="toast.type">{{
+        toast.message
+      }}</span>
     </div>
+
+    <i-feather
+      class="icon-close"
+      name="x"
+      (click)="removeToast(toast.id)"
+    ></i-feather>
   </div>
+  <div class="progress active success" *ngIf="toast.type == 'success'"></div>
+  <div class="progress active info" *ngIf="toast.type == 'info'"></div>
+  <div class="progress active warning" *ngIf="toast.type == 'warning'"></div>
+  <div class="progress active danger" *ngIf="toast.type == 'danger'"></div>
+
+  }
 </div>

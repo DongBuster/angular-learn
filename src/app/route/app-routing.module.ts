@@ -1,15 +1,31 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from '../core/service/guard/authGuard.service';
 import { CanDeactivateGuard } from '../core/service/guard/logoutGuard.service';
-import { AuthGuard as AuthDeactivateGuard } from '../core/guards/auth.guard';
+import { preventBackButtonGuard } from '../core/service/guard/prevent-back-button.guard';
 
 const routesConfig: Routes = [
   {
-    path: 'auth',
+    path: '',
+    redirectTo: '/login',
+    pathMatch: 'full',
+  },
+  {
+    path: 'login',
     loadComponent: () =>
-      import('../view/auth/authPage.component').then((c) => c.AuthComponent),
+      import('../view/auth/login/loginPage.component').then(
+        (c) => c.LoginPageComponent
+      ),
     canActivate: [AuthGuard],
-    canDeactivate: [AuthDeactivateGuard]
+    // canDeactivate: [preventBackButtonGuard],
+  },
+  {
+    path: 'register',
+    loadComponent: () =>
+      import('../view/auth/register/registerPage.component').then(
+        (c) => c.RegisterPageComponent
+      ),
+    canActivate: [AuthGuard],
+    // canDeactivate: [preventBackButtonGuard],
   },
   {
     path: '',
@@ -36,7 +52,6 @@ const routesConfig: Routes = [
             (c) => c.CartHousingComponent
           ),
       },
-      { path: '', redirectTo: '/home', pathMatch: 'full' },
     ],
   },
 

@@ -1,0 +1,30 @@
+.listing-photo {
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+  user-select: none;
+}
+.card {
+  margin-bottom: 20px;
+  margin-left: 10px;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#add-house {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+#icon-add {
+  margin-right: 20px;
+}
+.card-price {
+  color: gold;
+  font-size: 20px;
+  font-weight: bold;
+}

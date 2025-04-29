@@ -1,10 +1,13 @@
 <app-carousel style="display: flex; justify-content: center"></app-carousel>
+
 <div class="container text-center">
   <app-filter-housing
     (isCheckedIncrease)="getIscheckedIncrease($event)"
     (isCheckedDecrease)="getIscheckedDecrease($event)"
   ></app-filter-housing>
-  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+  <div
+    class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4"
+  >
     <ng-container *ngIf="!isLoadingInit; else loadingInit">
       <app-housing-location
         *ngFor="let product of filteredProductList"

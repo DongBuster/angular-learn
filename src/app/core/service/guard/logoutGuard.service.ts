@@ -15,7 +15,15 @@ export class CanDeactivateGuard
   canDeactivate(
     component: CanComponentDeactivate
   ): boolean | Observable<boolean> {
-    this.authService.setEmptyDataLocalStorage;
-    return component.canDeactivate ? component.canDeactivate() : true;
+    if (component.canDeactivate) {
+      const canLeave = component.canDeactivate();
+      if (typeof canLeave === 'boolean' && canLeave) {
+        // Clear localStorage
+        this.authService.setEmptyDataLocalStorage();
+        // Xóa data chỉ khi user thực sự rời đi
+      }
+      return canLeave;
+    }
+    return true;
   }
 }

@@ -46,6 +46,7 @@ export class UserProfileComponent {
     if (sessionStorage.getItem('loggedInUser') != null) {
       google.accounts.id.disableAutoSelect();
     }
-    this.router.navigate(['/auth']);
+    // Navigate to login page and replace the current history entry
+    this.router.navigate(['/login'], { replaceUrl: true });
   }
 }

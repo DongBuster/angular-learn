@@ -29,15 +29,15 @@ export class ErrorInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {
-        if (error.status === 401) {
-          return this.handle401Error(req, next);
-        } else if (error.status == 400) {
-          this.toastService.show('Resoure not found', 'danger');
-        } else if (error.status == 500) {
-          this.toastService.show('Server error', 'danger');
-        } else {
-          this.toastService.show('An unexpected error occured', 'danger');
-        }
+        // if (error.status === 401) {
+        //   return this.handle401Error(req, next);
+        // } else if (error.status == 400) {
+        //   this.toastService.show('Resoure not found', 'danger');
+        // } else if (error.status == 500) {
+        //   this.toastService.show('Server error', 'danger');
+        // } else {
+        //   this.toastService.show('An unexpected error occured', 'danger');
+        // }
 
         return throwError(() => error);
       })

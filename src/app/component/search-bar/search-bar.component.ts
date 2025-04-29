@@ -2,7 +2,6 @@ import { Subscription } from 'rxjs';
 import { HomeRepository } from './../../core/repository/home.repository';
 import { Component } from '@angular/core';
 import { FeatherIconsModule } from '../icons/icons.component';
-import { Product } from '../../core/models/product.model.';
 import { FilterService } from '../../core/service/filter/filter.service';
 
 @Component({

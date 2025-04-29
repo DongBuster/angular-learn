@@ -12,7 +12,7 @@ export class GlobalErrorService implements ErrorHandler {
     } else {
       const toast = this.injector.get(ToastService);
       console.log('Global  error caught: ', error);
-      toast.show('An unexpected error occured, Please try again!', 'danger');
+      // toast.show('An unexpected error occured, Please try again!', 'danger');
     }
   }
 }

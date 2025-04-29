@@ -42,9 +42,6 @@ export class DetailHousingComponent {
       this.product = product;
     });
   }
-  ngAfterViewInit() {
-    this.toastService.register(this.toastComponent);
-  }
 
   getEmailErrorMessage() {
     const emailControl = this.applyForm.get('email');
@@ -62,20 +59,17 @@ export class DetailHousingComponent {
         title: 'Updated Name',
       })
       .subscribe({
-        next: () => this.toastService.show('Updated thành công!', 'success'),
+        next: () => this.toastService.Success('Updated thành công!'),
 
-        error: (err) =>
-          this.toastService.show('Updated không thành công!', 'danger'),
+        error: (err) => this.toastService.Error('Updated không thành công!'),
       });
   }
 
   testDelete() {
     const housingLocationId = Number(this.route.snapshot.params['id']);
     this.detailRepo.deleteProduct(housingLocationId).subscribe({
-      next: () => this.toastService.show('Delete thành công!', 'success'),
-
-      error: (err) =>
-        this.toastService.show('Delete không thành công!', 'danger'),
+      next: () => this.toastService.Success('Delete thành công!'),
+      error: (err) => this.toastService.Error('Delete không thành công!'),
     });
   }
 
@@ -86,10 +80,8 @@ export class DetailHousingComponent {
         title: 'Updated Name',
       })
       .subscribe({
-        next: () => this.toastService.show('Add thành công!', 'success'),
-
-        error: (err) =>
-          this.toastService.show('Add không thành công!', 'danger'),
+        next: () => this.toastService.Success('Add thành công!'),
+        error: (err) => this.toastService.Error('Add không thành công!'),
       });
   }
 

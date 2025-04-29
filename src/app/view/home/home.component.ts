@@ -1,7 +1,7 @@
 import { HomeRepository } from './../../core/repository/home.repository';
 import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HousingLocationComponent } from '../../component/housing-location/housing-location.component';
+import { ProductItemComponent } from '../../component/product-item/product-item.component';
 import { Subscription } from 'rxjs';
 import { ToastComponent } from '../../component/toast/toast.component';
 import { CarouselComponent } from '../../component/carousel/carousel.component';
@@ -9,7 +9,6 @@ import { FilterProductsComponent } from '../../component/filter-products/filter-
 import { Product } from '../../core/models/product.model.';
 import { FilterService } from '../../core/service/filter/filter.service';
 import { HomeService } from '../../core/service/home/home.service';
-import { ToastService } from '../../core/service/toast/toast.service';
 import { LoadingComponent } from '../../component/loading/loading.component';
 
 @Component({
@@ -17,7 +16,7 @@ import { LoadingComponent } from '../../component/loading/loading.component';
   standalone: true,
   imports: [
     CommonModule,
-    HousingLocationComponent,
+    ProductItemComponent,
     ToastComponent,
     CarouselComponent,
     FilterProductsComponent,
@@ -28,7 +27,6 @@ import { LoadingComponent } from '../../component/loading/loading.component';
 })
 export class HomeComponent {
   @ViewChild(ToastComponent) toastComponent!: ToastComponent;
-
   isCheckedIncrease: boolean = false;
   isCheckedDecrease: boolean = false;
 
@@ -46,8 +44,7 @@ export class HomeComponent {
   constructor(
     private filterService: FilterService,
     private homeRepo: HomeRepository,
-    private homeService: HomeService,
-    private toastService: ToastService
+    private homeService: HomeService
   ) {}
 
   ngOnInit() {
@@ -68,10 +65,6 @@ export class HomeComponent {
         this.filteredProductList = products;
       }
     );
-  }
-
-  ngAfterViewInit() {
-    this.toastService.register(this.toastComponent);
   }
 
   getIscheckedIncrease(isChecked: boolean) {
